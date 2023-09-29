@@ -1,18 +1,78 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
+            Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
     <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{D72B4392-58BA-4892-9C55-672B8E0AC324}</ProjectGuid>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net7.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <Version>0.0.1</Version>
-        <AssemblyVersion>1.0.0</AssemblyVersion>
-        <FileVersion>1.0.0</FileVersion>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>LaptopDecoder</RootNamespace>
+        <AssemblyName>LaptopDecoder</AssemblyName>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <LangVersion>10</LangVersion>
     </PropertyGroup>
-
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
     <ItemGroup>
-      <PackageReference Include="Humanizer" Version="2.14.1" />
+        <Reference Include="System"/>
+        <Reference Include="System.Core"/>
+        <Reference Include="System.Data"/>
+        <Reference Include="System.Xml"/>
     </ItemGroup>
-
+    <ItemGroup>
+        <Compile Include="Attributes\RequiresKeyAttribute.cs" />
+        <Compile Include="Decoders\CrossToDecimalSum.cs" />
+        <Compile Include="Decoders\CrossToDecimalSumUnicode.cs" />
+        <Compile Include="Decoders\CrossToOrderSum.cs" />
+        <Compile Include="Decoders\CrossToOrderSumUnicode.cs" />
+        <Compile Include="Decoders\ValueToDecimal.cs" />
+        <Compile Include="Decoders\ValueToHexDecimal.cs" />
+        <Compile Include="Decoders\ValueToHexDecimalUnicode.cs" />
+        <Compile Include="Decoders\ValueToHexOrder.cs" />
+        <Compile Include="Decoders\ValueToHexOrderUnicode.cs" />
+        <Compile Include="Decoders\ValueToOrder.cs" />
+        <Compile Include="GlobalUsings.cs" />
+        <Compile Include="Implementation\Cross.cs" />
+        <Compile Include="Implementation\Decoder.cs" />
+        <Compile Include="Implementation\DecoderBase.cs" />
+        <Compile Include="Implementation\Laptop.cs" />
+        <Compile Include="Implementation\Value.cs" />
+        <Compile Include="Implementation\ValueBase.cs" />
+        <Compile Include="Implementation\ValueBaseType.cs" />
+        <Compile Include="Implementation\ValueType.cs" />
+        <Compile Include="Program.cs"/>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Properties\" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
 
 </Project>

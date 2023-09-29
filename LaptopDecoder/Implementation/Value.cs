@@ -50,7 +50,7 @@ public class Value : ValueBase
 
         var hexResult = ValueType switch
         {
-            ValueType.String => Convert.ToHexString(Encoding.UTF8.GetBytes(_value)),
+            ValueType.String => BitConverter.ToString(Encoding.UTF8.GetBytes(_value)).Replace("-", String.Empty),
             ValueType.Decimal => long.Parse(_value).ToString("X4")
         };
 

@@ -156,7 +156,7 @@ public class Laptop
             decoders.Add(new Decoder()
             {
                 Index = decoderIndex,
-                Name = decoderType.Name.Humanize(),
+                Name = decoderType.Name,
                 Type = decoderType,
                 DecodeMethod = decodeMethod
             });

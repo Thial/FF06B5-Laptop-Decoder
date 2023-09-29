@@ -12,5 +12,7 @@ Global
 		{54663E56-B680-4D4F-AB22-B92554A6DCAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54663E56-B680-4D4F-AB22-B92554A6DCAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54663E56-B680-4D4F-AB22-B92554A6DCAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54663E56-B680-4D4F-AB22-B92554A6DCAD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{54663E56-B680-4D4F-AB22-B92554A6DCAD}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
