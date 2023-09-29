@@ -8,7 +8,7 @@ If you want to create a decoder which requires a key just add a `[RequiresKey]` 
 namespace LaptopDecoder.Decoders;
 
 [RequiresKey]
-public class ValueToOrder : DecoderBase
+public class CrossHillCipher : DecoderBase
 {
     public override ValueBase[] Decode(Cross[] crosses, string key)
     {
