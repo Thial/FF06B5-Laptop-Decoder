@@ -1,6 +1,5 @@
 namespace LaptopDecoder.Decoders;
 
-[RequiresKey]
 public class ValueToOrder : DecoderBase
 {
     public override ValueBase[] Decode(Cross[] crosses, string key)

@@ -7,7 +7,7 @@ public class ValueToHexOrder : DecoderBase
         var length = crosses.Length;
         var newCrosses = new ValueBase[length];
 
-        var orderResult = new ValueToOrder().Decode(crosses, key);
+        var orderResult = new ValueToOrder().Decode(crosses, string.Empty);
 
         for (var crossIndex = 0; crossIndex < length; crossIndex++)
         {

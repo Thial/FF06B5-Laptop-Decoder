@@ -7,7 +7,7 @@ public class CrossToOrderSumUnicode : DecoderBase
         var length = crosses.Length;
         var unicodeValues = new ValueBase[length];
 
-        var orderSumResult = new CrossToOrderSum().Decode(crosses, key);
+        var orderSumResult = new CrossToOrderSum().Decode(crosses, string.Empty);
 
         for (var valueIndex = 0; valueIndex < length; valueIndex++)
         {

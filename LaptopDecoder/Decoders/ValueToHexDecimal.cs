@@ -7,7 +7,7 @@ public class ValueToHexDecimal : DecoderBase
         var length = crosses.Length;
         var newCrosses = new ValueBase[length];
 
-        var decimalResult = new ValueToDecimal().Decode(crosses, key);
+        var decimalResult = new ValueToDecimal().Decode(crosses, string.Empty);
 
         for (var crossIndex = 0; crossIndex < length; crossIndex++)
         {

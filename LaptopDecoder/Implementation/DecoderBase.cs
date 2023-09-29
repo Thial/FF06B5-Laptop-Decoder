@@ -2,5 +2,5 @@ namespace LaptopDecoder.Implementation;
 
 public abstract class DecoderBase
 {
-    public abstract ValueBase[] Decode(Cross[] crosses, string key);
+    public abstract ValueBase[] Decode(Cross[] crosses, string key = "");
 }
