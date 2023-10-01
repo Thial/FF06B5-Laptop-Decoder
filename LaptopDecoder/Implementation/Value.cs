@@ -19,52 +19,34 @@ public class Value : ValueBase
     public string TheValue
         => _value;
 
-    public override void Write(int valueWidth, int caretX, int caretY)
+    public override void Write(int offset, int valueWidth, int caretX, int caretY)
     {
-        Console.SetCursorPosition(caretX, caretY);
+        Console.SetCursorPosition(offset + caretX, caretY);
         Console.Write(_value);
     }
 
-    public override long[] GetOrderForEach()
+    public override ValueBase ToOrder()
     {
-        var decimalResult = GetDecimalForEach();
-        var result = new long[decimalResult.Length];
-        for (var charIndex = 0; charIndex < decimalResult.Length; charIndex++)
-            result[charIndex] = decimalResult[charIndex] - 64;
-        return result;
+        var result = _value.ToOrder();
+        return new Value(ValueType.Decimal, string.Join("", result));
     }
 
-    public override long[] GetDecimalForEach()
-    {
-        var length = _value.Length;
-        var result = new long[length];
-        for (var charIndex = 0; charIndex < length; charIndex++) 
-            result[charIndex] = _value[charIndex];
+    public override ValueBase ToOrderSum()
+        => ToOrder();
 
-        return result;
+    public override ValueBase ToDecimal()
+    {
+        var result = _value.ToDecimal(ValueType);
+        return new Value(ValueType.Decimal, string.Join("", result));
     }
 
-    public override string[] GetHexForEach()
+    public override ValueBase ToDecimalSum()
+        => ToDecimal();
+
+    public override ValueBase ToHex()
     {
-        var decimalResult = GetDecimalForEach();
-
-        var hexResult = ValueType switch
-        {
-            ValueType.String => BitConverter.ToString(Encoding.UTF8.GetBytes(_value)).Replace("-", String.Empty),
-            ValueType.Decimal => long.Parse(_value).ToString("X4")
-        };
-
-        return new[] { hexResult };
-    }
-
-    public override byte[] GetHexByteForEach()
-    {
-        var hexResult = GetHexForEach()[0];
-        var hexBytes = Enumerable.Range(0, hexResult.Length)
-            .Where(x => x % 2 == 0)
-            .Select(x => Convert.ToByte(hexResult.Substring(x, 2), 16))
-            .ToArray();
-        return hexBytes;
+        var result = _value.ToHex(ValueType);
+        return new Value(ValueType.Hex, result);
     }
     
     public override int GetValueWidth()

@@ -19,67 +19,52 @@ public class Cross : ValueBase
     public override string[] Values
         => _values.Select(v => v.TheValue).ToArray();
 
-    public override void Write(int valueWidth, int caretX, int caretY)
+    public override void Write(int offset, int valueWidth, int caretX, int caretY)
     {
         var halfWidth = (int)Math.Floor(valueWidth / 2f);
-        WriteCross(valueWidth, caretX, caretY);
-        Console.SetCursorPosition(caretX, caretY);
+        WriteCross(offset, valueWidth, caretX, caretY);
+        Console.SetCursorPosition(offset + caretX, caretY);
         Console.Write(_values[0].TheValue);
-        Console.SetCursorPosition(caretX + halfWidth + 2, caretY);
+        Console.SetCursorPosition(offset + caretX + halfWidth + 2, caretY);
         Console.Write(_values[1].TheValue);
-        Console.SetCursorPosition(caretX, caretY + 2);
+        Console.SetCursorPosition(offset + caretX, caretY + 2);
         Console.Write(_values[2].TheValue);
-        Console.SetCursorPosition(caretX + halfWidth + 2, caretY + 2);
+        Console.SetCursorPosition(offset + caretX + halfWidth + 2, caretY + 2);
         Console.Write(_values[3].TheValue);
     }
 
-    public override long[] GetOrderForEach()
+    public override ValueBase ToOrder()
     {
-        var decimalResult = GetDecimalForEach();
-        var result = new long[decimalResult.Length];
-        for (var charIndex = 0; charIndex < decimalResult.Length; charIndex++)
-            result[charIndex] = decimalResult[charIndex] - 64;
-        return result;
+        var r = _values.Select(v => v.ToOrder()).ToArray();
+        return new Cross((Value)r[0], (Value)r[1], (Value)r[2], (Value)r[3]);
     }
 
-    public override long[] GetDecimalForEach()
+    public override ValueBase ToOrderSum()
     {
-        var length = _values.Length;
-        var result = new long[length];
-        for (var valueIndex = 0; valueIndex < length; valueIndex++)
-            result[valueIndex] = _values[valueIndex].GetDecimalForEach().Sum();
-
-        return result;
+        var result = _values.Select(v => v.TheValue.ToOrder().Sum()).ToArray();
+        return new Value(ValueType.Decimal, result.Sum().ToString());
     }
 
-    public override string[] GetHexForEach()
+    public override ValueBase ToDecimal()
     {
-        var length = _values.Length;
-        var result = new string[length];
-        for (var valueIndex = 0; valueIndex < length; valueIndex++)
-        {
-            var value = _values[valueIndex];
-            result[valueIndex] = value.GetHexForEach()[0];
-        }
-
-        return result;
+        var r = _values.Select(v => v.ToDecimal()).ToArray();
+        return new Cross((Value)r[0], (Value)r[1], (Value)r[2], (Value)r[3]);
     }
 
-    public override byte[] GetHexByteForEach()
+    public override ValueBase ToDecimalSum()
     {
-        var hexResult = GetHexForEach();
-        var result = new List<byte>();
-        foreach (var hexString in hexResult)
-        {
-            var hexBytes = Enumerable.Range(0, hexString.Length)
-                .Where(x => x % 2 == 0)
-                .Select(x => Convert.ToByte(hexString.Substring(x, 2), 16))
-                .ToArray();
+        var result = _values.Select(v => v.TheValue.ToDecimal(v.ValueType).Sum()).ToArray();
+        return new Value(ValueType.Decimal, result.Sum().ToString());
+    }
 
-            result.AddRange(hexBytes);
-        }
-
-        return result.ToArray();
+    public override ValueBase ToHex()
+    {
+        var r = _values.Select(v => v.ToHex()).ToArray();
+        return new Cross(
+            (Value)r[0],
+            (Value)r[1],
+            (Value)r[2],
+            (Value)r[3]);
     }
     
     public override int GetValueWidth()
@@ -94,14 +79,14 @@ public class Cross : ValueBase
 
     private Value[] _values = new Value[4];
 
-    void WriteCross(int crossWidth, int caretX, int caretY)
+    void WriteCross(int offset, int crossWidth, int caretX, int caretY)
     {
         var halfWidth = (int)Math.Floor(crossWidth / 2f);
-        Console.SetCursorPosition(caretX + halfWidth, caretY);
+        Console.SetCursorPosition(offset + caretX + halfWidth, caretY);
         Console.Write($"|");
-        Console.SetCursorPosition(caretX, caretY + 1);
+        Console.SetCursorPosition(offset + caretX, caretY + 1);
         Console.Write(string.Join("",Enumerable.Range(0,crossWidth).Select(i => '-')));
-        Console.SetCursorPosition(caretX + halfWidth, caretY + 2);
+        Console.SetCursorPosition(offset + caretX + halfWidth, caretY + 2);
         Console.Write($"|");
     }
 

@@ -5,81 +5,39 @@ public class Laptop
     public Laptop()
     {
         _decoders = GetDecoders();
+        Reset();
+    }
+
+    public ValueBase[] Values
+    {
+        get => _values;
+        set => _values = value;
     }
     
-    public Cross[] Crosses
-        => _crosses;
+    public Cross[] BaseLaptopValues
+        => _baseLaptopValues;
 
-    public Decoder GetDecoder()
+    public Decoder[] Decoders
+        => _decoders;
+
+    public ValueBaseType ValueBaseType
     {
-        Console.Clear();
-        
-        foreach (var decoder in _decoders)
-        {
-            Console.WriteLine($"{decoder.Index} = {decoder.Name}");
-        }
-
-        var decoderIndex = default(int?);
-        while (decoderIndex == null)
-        {
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.Write("Please select the decoder: ");
-            var input = Console.ReadLine();
-
-            if (input != null && int.TryParse(input, out var parsedInput))
-            {
-                decoderIndex = parsedInput;
-            }
-        }
-
-        return _decoders[decoderIndex ?? 0];
+        get => _valueBaseType;
+        set => _valueBaseType = value;
     }
 
-    public string GetDecoderKey()
+    public void Reset()
     {
-        var decoderKey = string.Empty;
-        while (string.IsNullOrEmpty(decoderKey))
-        {
-            Console.WriteLine("");
-            Console.Write("Please enter the key: ");
-            var input = Console.ReadLine();
-
-            if (string.IsNullOrEmpty(input) == false)
-                decoderKey = input;
-        }
-
-        return decoderKey;
+        _values = _baseLaptopValues.Select(c => (ValueBase)c).ToArray();
+        _valueBaseType = ValueBaseType.Cross;
     }
     
-    public void WriteValues(ValueBase[] values)
-    {
-        Console.Clear();
-
-        var valueWidth = values.Select(v => v.GetValueWidth()).Max();
-        
-        for (var y = 0; y < 3; y++)
-        for (var x = 0; x < 6; x++)
-        {
-            var value = values[y * 6 + x];
-            var caretX = x * (valueWidth + 3);
-            var caretY = value.BaseType == ValueBaseType.Cross
-                ? y * 4
-                : y * 2;
-            value.Write(valueWidth, caretX, caretY);
-        }
-        
-        Console.WriteLine("");
-        Console.WriteLine("");
-        Console.WriteLine("");
-        Console.Write("Press any key to decrypt again.");
-        Console.ReadKey();
-    }
-
     #region Implementation
 
     private Decoder[] _decoders;
-    Cross[] _crosses = new[]
+    private ValueBase[] _values;
+    private ValueBaseType _valueBaseType;
+    Cross[] _baseLaptopValues = new[]
     {
         new Cross(new Value(ValueType.String, "P"), new Value(ValueType.String, "H"),
             new Value(ValueType.String, "P"), new Value(ValueType.String, "U")),
@@ -149,16 +107,22 @@ public class Laptop
         for (var decoderIndex = 0; decoderIndex < decoderCount; decoderIndex++)
         {
             var decoderType = decoderTypes[decoderIndex];
-            var decodeMethod = decoderType.GetMethod("Decode");
-            if (decodeMethod is null)
-                throw new Exception($"Decoder {decoderType.FullName} does not contain a Decode method");
+            
+            var decodeCrossMethod = decoderType.GetMethod("DecodeCross");
+            if (decodeCrossMethod is null)
+                throw new Exception($"Decoder {decoderType.FullName} does not contain a DecodeCross method");
+            
+            var decodeValueMethod = decoderType.GetMethod("DecodeValue");
+            if (decodeValueMethod is null)
+                throw new Exception($"Decoder {decoderType.FullName} does not contain a DecodeValue method");
             
             decoders.Add(new Decoder()
             {
                 Index = decoderIndex,
                 Name = decoderType.Name,
                 Type = decoderType,
-                DecodeMethod = decodeMethod
+                DecodeCrossMethod = decodeCrossMethod,
+                DecodeValueMethod = decodeValueMethod
             });
         }
 

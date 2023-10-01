@@ -35,6 +35,9 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="CryptSharp, Version=1.3.0.2, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\CryptSharp.1.3.0\lib\net462\CryptSharp.dll</HintPath>
+        </Reference>
         <Reference Include="System"/>
         <Reference Include="System.Core"/>
         <Reference Include="System.Data"/>
@@ -42,20 +45,29 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Attributes\RequiresKeyAttribute.cs" />
-        <Compile Include="Decoders\CrossToDecimalSum.cs" />
-        <Compile Include="Decoders\CrossToDecimalSumUnicode.cs" />
-        <Compile Include="Decoders\CrossToOrderSum.cs" />
-        <Compile Include="Decoders\CrossToOrderSumUnicode.cs" />
-        <Compile Include="Decoders\ValueToDecimal.cs" />
-        <Compile Include="Decoders\ValueToHexDecimal.cs" />
-        <Compile Include="Decoders\ValueToHexDecimalUnicode.cs" />
-        <Compile Include="Decoders\ValueToHexOrder.cs" />
-        <Compile Include="Decoders\ValueToHexOrderUnicode.cs" />
-        <Compile Include="Decoders\ValueToOrder.cs" />
+        <Compile Include="Decoders\ToDecimal.cs" />
+        <Compile Include="Decoders\ToDecimalSum.cs" />
+        <Compile Include="Decoders\ToHex.cs" />
+        <Compile Include="Decoders\ToHorizontalNonPairs1To18.cs" />
+        <Compile Include="Decoders\ToHorizontalNonPairs1To9.cs" />
+        <Compile Include="Decoders\ToHorizontalPairs1To18.cs" />
+        <Compile Include="Decoders\ToHorizontalPairs1To9.cs" />
+        <Compile Include="Decoders\ToLowerCase.cs" />
+        <Compile Include="Decoders\ToOrder.cs" />
+        <Compile Include="Decoders\ToOrderSum.cs" />
+        <Compile Include="Decoders\ToUpperCase.cs" />
+        <Compile Include="Decoders\ToVerticalNonPairs1To18.cs" />
+        <Compile Include="Decoders\ToVerticalNonPairs1To9.cs" />
+        <Compile Include="Decoders\ToVerticalPairs1To18.cs" />
+        <Compile Include="Decoders\ToVerticalPairs1To9.cs" />
+        <Compile Include="Extensions\StringExtensions.cs" />
+        <Compile Include="Extensions\ValueBaseExtensions.cs" />
         <Compile Include="GlobalUsings.cs" />
         <Compile Include="Implementation\Cross.cs" />
         <Compile Include="Implementation\Decoder.cs" />
         <Compile Include="Implementation\DecoderBase.cs" />
+        <Compile Include="Implementation\DecoderResult.cs" />
+        <Compile Include="Implementation\Interface.cs" />
         <Compile Include="Implementation\Laptop.cs" />
         <Compile Include="Implementation\Value.cs" />
         <Compile Include="Implementation\ValueBase.cs" />
@@ -65,6 +77,9 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Properties\" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="packages.config" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
