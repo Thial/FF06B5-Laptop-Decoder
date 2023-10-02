@@ -4,7 +4,7 @@
 
 ## Maximize the console window. Otherwise Windows will cry if your results exceed the window size.
 
-If you want to create a decoder which requires a key just add a `[RequiresKey]` attribute above the class.
+If you want to create a decoder which requires a key just add a `[Parameter("somename", ValueType.Decimal)]` attribute above the class.
 
 Each decoder contains 2 methods: `DecodeCross` and `DecodeValue`.
 
@@ -17,16 +17,17 @@ Example decoder:
 ```csharp
 namespace LaptopDecoder.Decoders;
 
-[RequiresKey]
-public class HillCipher : DecoderBase
+[Parameter("KEY", ValueType.String)]
+[Parameter("SALT", ValueType.Hex)]
+public class SomeCipher : DecoderBase
 {
-    public override DecoderResult DecodeCross(Cross[] values, string key = "")
+    public override DecoderResult DecodeCross(Cross[] values, Parameter[] parameters)
     {
         var result = //some logic
         return new DecoderResult(result);
     }
 
-    public override DecoderResult DecodeValue(Value[] values, string key = "")
+    public override DecoderResult DecodeValue(Value[] values, Parameter[] parameters)
     {
         var result = //some logic
         return new DecoderResult(result);
