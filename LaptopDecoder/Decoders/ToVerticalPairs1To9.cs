@@ -2,7 +2,7 @@ namespace LaptopDecoder.Decoders;
 
 public class ToVerticalPairs1To9 : DecoderBase
 {
-    public override DecoderResult DecodeCross(Cross[] values, string key = "")
+    public override DecoderResult DecodeCross(Cross[] values, Parameter[] parameters)
     {
         var values1 = values.Take(9).ToArray();
         var values2 = values.Skip(9).ToArray();
@@ -46,7 +46,7 @@ public class ToVerticalPairs1To9 : DecoderBase
         return newValues;
     }
 
-    public override DecoderResult DecodeValue(Value[] values, string key = "")
+    public override DecoderResult DecodeValue(Value[] values, Parameter[] parameters)
     {
         var values1 = values.Take(9).ToArray();
         var values2 = values.Skip(9).ToArray();

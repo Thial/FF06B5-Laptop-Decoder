@@ -62,6 +62,45 @@ public class Interface
 
         return decoderKey;
     }
+
+    public Parameter[] GetDecoderParameters(Decoder decoder)
+    {
+        var parameterAttributes = decoder.Type
+            .GetCustomAttributes(typeof(ParameterAttribute), true)
+            .Select(a => (ParameterAttribute)a)
+            .ToArray();
+
+        var parameters = new Parameter[parameterAttributes.Length];
+
+        var parameterIndex = _laptop.Decoders.Length + 3;
+        for (var i = 0; i < parameterAttributes.Length; i++)
+        {
+            var attribute = parameterAttributes[i];
+            var parameter = GetDecoderParameter(parameterIndex, attribute);
+            parameters[i] = parameter;
+            parameterIndex++;
+        }
+
+        return parameters;
+    }
+    
+    public Parameter GetDecoderParameter(int caretY, ParameterAttribute attribute)
+    {
+        while (true)
+        {
+            Console.SetCursorPosition(0, caretY);
+            Console.Write($"Please enter \"{attribute.Name}\": ");
+            var input = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(input) == false)
+                return new Parameter()
+                {
+                    Name = attribute.Name,
+                    Value = input,
+                    ValueType = attribute.ValueType
+                };
+        }
+    }
     
     public void WriteDecoders()
     {

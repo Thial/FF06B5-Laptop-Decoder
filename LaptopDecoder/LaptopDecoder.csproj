@@ -44,6 +44,7 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Attributes\ParameterAttribute.cs" />
         <Compile Include="Attributes\RequiresKeyAttribute.cs" />
         <Compile Include="Decoders\ToDecimal.cs" />
         <Compile Include="Decoders\ToDecimalSum.cs" />
@@ -69,6 +70,7 @@
         <Compile Include="Implementation\DecoderResult.cs" />
         <Compile Include="Implementation\Interface.cs" />
         <Compile Include="Implementation\Laptop.cs" />
+        <Compile Include="Implementation\Parameter.cs" />
         <Compile Include="Implementation\Value.cs" />
         <Compile Include="Implementation\ValueBase.cs" />
         <Compile Include="Implementation\ValueBaseType.cs" />

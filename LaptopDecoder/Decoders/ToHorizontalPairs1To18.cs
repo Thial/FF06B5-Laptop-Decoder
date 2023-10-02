@@ -2,7 +2,7 @@ namespace LaptopDecoder.Decoders;
 
 public class ToHorizontalPairs1To18 : DecoderBase
 {
-    public override DecoderResult DecodeCross(Cross[] values, string key = "")
+    public override DecoderResult DecodeCross(Cross[] values, Parameter[] parameters)
     {
         var result = ProcessCrossess(values).Select(v => (ValueBase)v).ToArray();
         return new DecoderResult(result);
@@ -36,7 +36,7 @@ public class ToHorizontalPairs1To18 : DecoderBase
         return newValues;
     }
 
-    public override DecoderResult DecodeValue(Value[] values, string key = "")
+    public override DecoderResult DecodeValue(Value[] values, Parameter[] parameters)
     {
         var result = new List<ValueBase>();
         result.AddRange(values);

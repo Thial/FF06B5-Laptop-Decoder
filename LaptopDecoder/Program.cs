@@ -11,14 +11,14 @@ while (true)
     _ui.WriteSeparators();
     _ui.WriteValues();
 
-    var key = string.Empty;
+    var parameters = Array.Empty<Parameter>();
     var decoder = _ui.GetDecoder();
     
     if (decoder is null) //reset
         continue;
     
-    if (decoder.RequiresKey)
-        key = _ui.GetDecoderKey();
+    if (decoder.HasParameters)
+        parameters = _ui.GetDecoderParameters(decoder);
     
     var decoderInstance = (DecoderBase)Activator.CreateInstance(decoder.Type);
 
@@ -27,9 +27,9 @@ while (true)
         var decodedValues = _ui.Laptop.ValueBaseType switch
         {
             ValueBaseType.Cross => (DecoderResult)decoder.DecodeCrossMethod.Invoke(decoderInstance,
-                new object[] { _ui.Laptop.Values.ToCrosses(), key }),
+                new object[] { _ui.Laptop.Values.ToCrosses(), parameters }),
             ValueBaseType.Value => (DecoderResult)decoder.DecodeValueMethod.Invoke(decoderInstance,
-                new object[] { _ui.Laptop.Values.ToValues(), key })
+                new object[] { _ui.Laptop.Values.ToValues(), parameters })
         };
         
         _ui.Laptop.Values = decodedValues.Values;

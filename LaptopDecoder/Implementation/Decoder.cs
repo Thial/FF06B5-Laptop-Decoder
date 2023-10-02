@@ -8,6 +8,6 @@ public class Decoder
     public MethodInfo DecodeCrossMethod { get; set; }
     public MethodInfo DecodeValueMethod { get; set; }
 
-    public bool RequiresKey
-        => Type.GetCustomAttributes(typeof(RequiresKeyAttribute), true).FirstOrDefault() != null;
+    public bool HasParameters
+        => Type.GetCustomAttributes(typeof(ParameterAttribute), true).FirstOrDefault() != null;
 }
