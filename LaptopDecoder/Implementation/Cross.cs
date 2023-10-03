@@ -11,6 +11,8 @@ public class Cross : ValueBase
         _values[1] = topRight;
         _values[2] = bottomLeft;
         _values[3] = bottomRight;
+
+        Encoding = topLeft.Encoding;
     }
 
     public override ValueBaseType BaseType { get; }
@@ -18,6 +20,8 @@ public class Cross : ValueBase
 
     public override string[] Values
         => _values.Select(v => v.TheValue).ToArray();
+    
+    public override Encoding Encoding { get; }
 
     public override void Write(int offset, int valueWidth, int caretX, int caretY)
     {
@@ -42,7 +46,7 @@ public class Cross : ValueBase
     public override ValueBase ToOrderSum()
     {
         var result = _values.Select(v => v.TheValue.ToOrder().Sum()).ToArray();
-        return new Value(ValueType.Decimal, result.Sum().ToString());
+        return new Value(ValueType.Decimal, result.Sum().ToString(), Encoding);
     }
 
     public override ValueBase ToDecimal()
@@ -54,12 +58,32 @@ public class Cross : ValueBase
     public override ValueBase ToDecimalSum()
     {
         var result = _values.Select(v => v.TheValue.ToDecimal(v.ValueType).Sum()).ToArray();
-        return new Value(ValueType.Decimal, result.Sum().ToString());
+        return new Value(ValueType.Decimal, result.Sum().ToString(), Encoding);
     }
 
     public override ValueBase ToHex()
     {
         var r = _values.Select(v => v.ToHex()).ToArray();
+        return new Cross(
+            (Value)r[0],
+            (Value)r[1],
+            (Value)r[2],
+            (Value)r[3]);
+    }
+
+    public override ValueBase ToCharacter()
+    {
+        var r = _values.Select(v => v.ToCharacter()).ToArray();
+        return new Cross(
+            (Value)r[0],
+            (Value)r[1],
+            (Value)r[2],
+            (Value)r[3]);
+    }
+    
+    public override ValueBase ToEncoding(Encoding encoding)
+    {
+        var r = _values.Select(v => v.ToEncoding(encoding)).ToArray();
         return new Cross(
             (Value)r[0],
             (Value)r[1],

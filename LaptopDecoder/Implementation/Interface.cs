@@ -92,6 +92,9 @@ public class Interface
             Console.Write($"Please enter \"{attribute.Name}\": ");
             var input = Console.ReadLine();
 
+            if (attribute.ValueType == ValueType.Decimal && long.TryParse(input, out var parsed) == false)
+                continue;
+
             if (string.IsNullOrEmpty(input) == false)
                 return new Parameter()
                 {

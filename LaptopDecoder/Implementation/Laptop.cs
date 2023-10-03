@@ -4,6 +4,63 @@ public class Laptop
 {
     public Laptop()
     {
+        var enc = Encoding.ASCII;
+        _baseLaptopValues = new[]
+        {
+            new Cross(new Value(ValueType.String, "P", enc), new Value(ValueType.String, "H", enc),
+                new Value(ValueType.String, "P", enc), new Value(ValueType.String, "U", enc)),
+
+            new Cross(new Value(ValueType.String, "V", enc), new Value(ValueType.String, "K", enc),
+                new Value(ValueType.String, "P", enc), new Value(ValueType.String, "K", enc)),
+
+            new Cross(new Value(ValueType.String, "V", enc), new Value(ValueType.String, "G", enc),
+                new Value(ValueType.String, "V", enc), new Value(ValueType.String, "Z", enc)),
+
+            new Cross(new Value(ValueType.String, "V", enc), new Value(ValueType.String, "S", enc),
+                new Value(ValueType.String, "P", enc), new Value(ValueType.String, "N", enc)),
+
+            new Cross(new Value(ValueType.String, "V", enc), new Value(ValueType.String, "B", enc),
+                new Value(ValueType.String, "P", enc), new Value(ValueType.String, "B", enc)),
+
+            new Cross(new Value(ValueType.String, "V", enc), new Value(ValueType.String, "D", enc),
+                new Value(ValueType.String, "V", enc), new Value(ValueType.String, "D", enc)),
+
+            new Cross(new Value(ValueType.String, "O", enc), new Value(ValueType.String, "Y", enc),
+                new Value(ValueType.String, "Y", enc), new Value(ValueType.String, "Y", enc)),
+
+            new Cross(new Value(ValueType.String, "O", enc), new Value(ValueType.String, "W", enc),
+                new Value(ValueType.String, "O", enc), new Value(ValueType.String, "K", enc)),
+
+            new Cross(new Value(ValueType.String, "Y", enc), new Value(ValueType.String, "N", enc),
+                new Value(ValueType.String, "Y", enc), new Value(ValueType.String, "S", enc)),
+
+            new Cross(new Value(ValueType.String, "O", enc), new Value(ValueType.String, "D", enc),
+                new Value(ValueType.String, "O", enc), new Value(ValueType.String, "D", enc)),
+
+            new Cross(new Value(ValueType.String, "Y", enc), new Value(ValueType.String, "F", enc),
+                new Value(ValueType.String, "O", enc), new Value(ValueType.String, "F", enc)),
+
+            new Cross(new Value(ValueType.String, "H", enc), new Value(ValueType.String, "G", enc),
+                new Value(ValueType.String, "U", enc), new Value(ValueType.String, "Z", enc)),
+
+            new Cross(new Value(ValueType.String, "U", enc), new Value(ValueType.String, "T", enc),
+                new Value(ValueType.String, "U", enc), new Value(ValueType.String, "I", enc)),
+
+            new Cross(new Value(ValueType.String, "H", enc), new Value(ValueType.String, "B", enc),
+                new Value(ValueType.String, "U", enc), new Value(ValueType.String, "B", enc)),
+
+            new Cross(new Value(ValueType.String, "H", enc), new Value(ValueType.String, "F", enc),
+                new Value(ValueType.String, "H", enc), new Value(ValueType.String, "F", enc)),
+
+            new Cross(new Value(ValueType.String, "K", enc), new Value(ValueType.String, "Z", enc),
+                new Value(ValueType.String, "W", enc), new Value(ValueType.String, "G", enc)),
+
+            new Cross(new Value(ValueType.String, "W", enc), new Value(ValueType.String, "B", enc),
+                new Value(ValueType.String, "W", enc), new Value(ValueType.String, "B", enc)),
+
+            new Cross(new Value(ValueType.String, "W", enc), new Value(ValueType.String, "D", enc),
+                new Value(ValueType.String, "K", enc), new Value(ValueType.String, "D", enc))
+        };
         _decoders = GetDecoders();
         Reset();
     }
@@ -37,68 +94,14 @@ public class Laptop
     private Decoder[] _decoders;
     private ValueBase[] _values;
     private ValueBaseType _valueBaseType;
-    Cross[] _baseLaptopValues = new[]
-    {
-        new Cross(new Value(ValueType.String, "P"), new Value(ValueType.String, "H"),
-            new Value(ValueType.String, "P"), new Value(ValueType.String, "U")),
-
-        new Cross(new Value(ValueType.String, "V"), new Value(ValueType.String, "K"),
-            new Value(ValueType.String, "P"), new Value(ValueType.String, "K")),
-
-        new Cross(new Value(ValueType.String, "V"), new Value(ValueType.String, "G"),
-            new Value(ValueType.String, "V"), new Value(ValueType.String, "Z")),
-
-        new Cross(new Value(ValueType.String, "V"), new Value(ValueType.String, "S"),
-            new Value(ValueType.String, "P"), new Value(ValueType.String, "N")),
-
-        new Cross(new Value(ValueType.String, "V"), new Value(ValueType.String, "B"),
-            new Value(ValueType.String, "P"), new Value(ValueType.String, "B")),
-
-        new Cross(new Value(ValueType.String, "V"), new Value(ValueType.String, "D"),
-            new Value(ValueType.String, "V"), new Value(ValueType.String, "D")),
-
-        new Cross(new Value(ValueType.String, "O"), new Value(ValueType.String, "Y"),
-            new Value(ValueType.String, "Y"), new Value(ValueType.String, "Y")),
-
-        new Cross(new Value(ValueType.String, "O"), new Value(ValueType.String, "W"),
-            new Value(ValueType.String, "O"), new Value(ValueType.String, "K")),
-
-        new Cross(new Value(ValueType.String, "Y"), new Value(ValueType.String, "N"),
-            new Value(ValueType.String, "Y"), new Value(ValueType.String, "S")),
-
-        new Cross(new Value(ValueType.String, "O"), new Value(ValueType.String, "D"),
-            new Value(ValueType.String, "O"), new Value(ValueType.String, "D")),
-
-        new Cross(new Value(ValueType.String, "Y"), new Value(ValueType.String, "F"),
-            new Value(ValueType.String, "O"), new Value(ValueType.String, "F")),
-
-        new Cross(new Value(ValueType.String, "H"), new Value(ValueType.String, "G"),
-            new Value(ValueType.String, "U"), new Value(ValueType.String, "Z")),
-
-        new Cross(new Value(ValueType.String, "U"), new Value(ValueType.String, "T"),
-            new Value(ValueType.String, "U"), new Value(ValueType.String, "I")),
-
-        new Cross(new Value(ValueType.String, "H"), new Value(ValueType.String, "B"),
-            new Value(ValueType.String, "U"), new Value(ValueType.String, "B")),
-
-        new Cross(new Value(ValueType.String, "H"), new Value(ValueType.String, "F"),
-            new Value(ValueType.String, "H"), new Value(ValueType.String, "F")),
-
-        new Cross(new Value(ValueType.String, "K"), new Value(ValueType.String, "Z"),
-            new Value(ValueType.String, "W"), new Value(ValueType.String, "G")),
-
-        new Cross(new Value(ValueType.String, "W"), new Value(ValueType.String, "B"),
-            new Value(ValueType.String, "W"), new Value(ValueType.String, "B")),
-
-        new Cross(new Value(ValueType.String, "W"), new Value(ValueType.String, "D"),
-            new Value(ValueType.String, "K"), new Value(ValueType.String, "D"))
-    };
+    private Cross[] _baseLaptopValues;
 
     Decoder[] GetDecoders()
     {
         var decoderTypes = Assembly.GetExecutingAssembly()
             .GetTypes()
             .Where(t => t.FullName == $"LaptopDecoder.Decoders.{t.Name}")
+            .OrderBy(t => t.Name)
             .ToArray();
 
         var decoderCount = decoderTypes.Length;
