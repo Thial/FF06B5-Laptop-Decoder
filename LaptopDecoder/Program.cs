@@ -39,6 +39,8 @@ while (true)
         Console.WriteLine("There was an error with the conversion. Resetting in 4 seconds.");
         Console.WriteLine("");
         Console.WriteLine(e.Message);
+        if (e.InnerException != null)
+            Console.WriteLine(e.InnerException.Message);
         Thread.Sleep(TimeSpan.FromMilliseconds(4000));
         _ui.Laptop.Reset();
     }

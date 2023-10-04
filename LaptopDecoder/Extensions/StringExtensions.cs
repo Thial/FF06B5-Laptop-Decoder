@@ -63,6 +63,6 @@ public static class StringExtensions
 
     public static bool IsNullOrEmptyOrSpace(string value)
     {
-        return string.IsNullOrEmpty(value) || value == " ";
+        return string.IsNullOrEmpty(value.Trim());
     }
 }

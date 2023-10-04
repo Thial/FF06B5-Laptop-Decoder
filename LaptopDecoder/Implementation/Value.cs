@@ -11,12 +11,22 @@ public class Value : ValueBase
 
         Encoding = encoding;
     }
+    
+    public Value(DecoderResult decoderResult)
+    {
+        BaseType = ValueBaseType.Value;
+        ValueType = decoderResult.Values[0].ValueType;
+
+        _value = ((Value)decoderResult.Values[0]).TheValue;
+
+        Encoding = decoderResult.Values[0].Encoding;
+    }
 
     public override ValueBaseType BaseType { get; }
     public override ValueType ValueType { get; }
 
-    public override string[] Values
-        => new[] { _value };
+    public override Value[] Values
+        => new[] { new Value(ValueType, _value, Encoding) };
     
     public override Encoding Encoding { get; }
 

@@ -2,51 +2,31 @@ namespace LaptopDecoder.Decoders;
 
 public class ToIndexingVertical1To18 : DecoderBase
 {
+    int[] _indices = new int[]
+    {
+        1, 4, 7, 10, 13, 16,
+        2, 5, 8, 11, 14, 17,
+        3, 6, 9, 12, 15, 18
+    };
+    
     public override DecoderResult DecodeCross(Cross[] values, Parameter[] parameters)
     {
-        var newCrosses = new ValueBase[values.Length];
-        var indices = new int[]
-        {
-            1, 4, 7, 10, 13, 16,
-            2, 5, 8, 11, 14, 17,
-            3, 6, 9, 12, 15, 18
-        };
-        
-        for (var crossIndex = 0; crossIndex < values.Length; crossIndex++)
-        {
-            var cross = values[crossIndex];
-            var valueLength = cross.Values.Length;
-            var newValues = new Value[valueLength];
-            for (var valueIndex = 0; valueIndex < valueLength; valueIndex++)
-            {
-                var newValue = GetValue(cross.ValueType, cross.Values[valueIndex], indices[crossIndex], cross.Encoding);
-                newValues[valueIndex] = newValue;
-            }
+        var result = values
+            .Select(c => new Cross(DecodeValue(c.Values, parameters)))
+            .Cast<ValueBase>()
+            .ToArray();
 
-            newCrosses[crossIndex] = new Cross(
-                newValues[0],
-                newValues[1],
-                newValues[2],
-                newValues[3]);
-        }
-
-        return new DecoderResult(newCrosses);
+        return new DecoderResult(result);
     }
 
     public override DecoderResult DecodeValue(Value[] values, Parameter[] parameters)
     {
         var newValues = new ValueBase[values.Length];
-        var indices = new int[]
-        {
-            1, 2, 3, 1, 2, 3,
-            4, 5, 6, 4, 5, 6,
-            7, 8, 9, 7, 8, 9
-        };
 
         for (var valueIndex = 0; valueIndex < values.Length; valueIndex++)
         {
             var value = values[valueIndex];
-            newValues[valueIndex] = GetValue(value.ValueType, value.TheValue, indices[valueIndex], value.Encoding);
+            newValues[valueIndex] = GetValue(value.ValueType, value.TheValue, _indices[valueIndex], value.Encoding);
         }
 
         return new DecoderResult(newValues);

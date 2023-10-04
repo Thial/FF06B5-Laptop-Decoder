@@ -5,28 +5,12 @@ public class ToCipherROTUpperAndLower : DecoderBase
 {
     public override DecoderResult DecodeCross(Cross[] values, Parameter[] parameters)
     {
-        var amount = parameters.First(p => p.Name == "AMOUNT").ToDecimal();
-        var newCrosses = new ValueBase[values.Length];
-        for (var crossIndex = 0; crossIndex < values.Length; crossIndex++)
-        {
-            var cross = values[crossIndex].ToCharacter();
-            var newValues = new Value[cross.Values.Length];
-            for (var valueIndex = 0; valueIndex < cross.Values.Length; valueIndex++)
-            {
-                var value = cross.Values[valueIndex];
-                var isEmpty = StringExtensions.IsNullOrEmptyOrSpace(value);
-                var newValue = isEmpty ? "" : GetCharacter(value[0], amount).ToString();
-                newValues[valueIndex] = new Value(ValueType.String, newValue, cross.Encoding);
-            }
+        var result = values
+            .Select(c => new Cross(DecodeValue(c.Values, parameters)))
+            .Cast<ValueBase>()
+            .ToArray();
 
-            newCrosses[crossIndex] = new Cross(
-                newValues[0],
-                newValues[1],
-                newValues[2],
-                newValues[3]);
-        }
-
-        return new DecoderResult(newCrosses);
+        return new DecoderResult(result);
     }
 
     public override DecoderResult DecodeValue(Value[] values, Parameter[] parameters)

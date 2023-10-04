@@ -4,13 +4,12 @@ public class ToEncodingWindows1252 : DecoderBase
 {
     public override DecoderResult DecodeCross(Cross[] values, Parameter[] parameters)
     {
-        var newCrosses = new ValueBase[values.Length];
-        for (var crossIndex = 0; crossIndex < values.Length; crossIndex++)
-        {
-            newCrosses[crossIndex] = values[crossIndex].ToEncoding(Encoding.GetEncoding(1252));
-        }
+        var result = values
+            .Select(c => new Cross(DecodeValue(c.Values, parameters)))
+            .Cast<ValueBase>()
+            .ToArray();
 
-        return new DecoderResult(newCrosses);
+        return new DecoderResult(result);
     }
 
     public override DecoderResult DecodeValue(Value[] values, Parameter[] parameters)

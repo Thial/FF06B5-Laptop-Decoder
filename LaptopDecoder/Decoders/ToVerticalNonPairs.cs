@@ -8,8 +8,8 @@ public class ToVerticalNonPairs : DecoderBase
         var enc = values[0].Encoding;
         for (var crossIndex = 0; crossIndex < values.Length; crossIndex++)
         {
-            var pair1 = values[crossIndex].Values[0] + values[crossIndex].Values[2];
-            var pair2 = values[crossIndex].Values[1] + values[crossIndex].Values[3];
+            var pair1 = values[crossIndex].Values[0].TheValue + values[crossIndex].Values[2].TheValue;
+            var pair2 = values[crossIndex].Values[1].TheValue + values[crossIndex].Values[3].TheValue;
             var pair1Matching = pair1.Distinct().Count() == 1; 
             var pair2Matching = pair2.Distinct().Count() == 1;
 

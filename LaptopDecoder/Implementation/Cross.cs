@@ -2,24 +2,37 @@ namespace LaptopDecoder.Implementation;
 
 public class Cross : ValueBase
 {
-    public Cross(Value topLeft, Value topRight, Value bottomLeft, Value bottomRight)
+    public Cross(Value tl, Value tr, Value bl, Value br)
     {
         BaseType = ValueBaseType.Cross;
-        ValueType = topLeft.ValueType;
+        ValueType = tl.ValueType;
 
-        _values[0] = topLeft;
-        _values[1] = topRight;
-        _values[2] = bottomLeft;
-        _values[3] = bottomRight;
+        _values[0] = tl;
+        _values[1] = tr;
+        _values[2] = bl;
+        _values[3] = br;
 
-        Encoding = topLeft.Encoding;
+        Encoding = tl.Encoding;
+    }
+    
+    public Cross(DecoderResult decoderResult)
+    {
+        BaseType = ValueBaseType.Cross;
+        ValueType = decoderResult.Values[0].ValueType;
+
+        _values[0] = (Value)decoderResult.Values[0];
+        _values[1] = (Value)decoderResult.Values[1];
+        _values[2] = (Value)decoderResult.Values[2];
+        _values[3] = (Value)decoderResult.Values[3];
+
+        Encoding = decoderResult.Values[0].Encoding;
     }
 
     public override ValueBaseType BaseType { get; }
     public override ValueType ValueType { get; }
 
-    public override string[] Values
-        => _values.Select(v => v.TheValue).ToArray();
+    public override Value[] Values
+        => _values;
     
     public override Encoding Encoding { get; }
 
